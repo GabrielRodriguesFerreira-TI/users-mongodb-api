@@ -1,4 +1,4 @@
-import { User } from "../models/users.models";
+import { CreateUserParams, User } from "../models/users.models";
 import { HttpResponse } from "../../typings";
 
 export interface iGetUserController {
@@ -7,4 +7,8 @@ export interface iGetUserController {
 
 export interface iGetUserRepository {
   getUsers(): Promise<User[]>;
+}
+
+export interface ICreateUserRepository {
+  createUser(params: CreateUserParams): Promise<User>;
 }
