@@ -7,6 +7,8 @@ import { MongoCreateUserRepository } from "./repositories/create-user/mongo-crea
 import { CreateUserController } from "./controllers/create-users/create-users";
 import { MongoUpdateUserRepository } from "./repositories/update-user/mongo-update-users";
 import { UpdateUserController } from "./controllers/update-users/update-users";
+import { MongoDeleteUserRepository } from "./repositories/delete-user/mongo-delete-user";
+import { DeleteUserController } from "./controllers/delete-users/delete-users";
 
 const main = async () => {
   const app: Application = express();
@@ -46,6 +48,21 @@ const main = async () => {
     );
 
     const { body, statusCode } = await mongoUpdateUserController.handle({
+      body: req.body,
+      params: req.params,
+    });
+
+    return res.status(statusCode).send(body);
+  });
+
+  app.delete("/users/:id", async (req, res) => {
+    const mongoDeleteUserRepository = new MongoDeleteUserRepository();
+
+    const mongoDeleteUserController = new DeleteUserController(
+      mongoDeleteUserRepository
+    );
+
+    const { body, statusCode } = await mongoDeleteUserController.handle({
       body: req.body,
       params: req.params,
     });
