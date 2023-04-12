@@ -1,9 +1,7 @@
-import {
-  iGetUserController,
-  iGetUserRepository,
-} from "../../interfaces/users.types";
+import { iController } from "../../../typings";
+import { iGetUserRepository } from "../../interfaces/users.types";
 
-export class GetUserController implements iGetUserController {
+export class GetUserController implements iController {
   constructor(private readonly getUsersRepository: iGetUserRepository) {}
 
   async handle() {

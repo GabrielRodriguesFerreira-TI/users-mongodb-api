@@ -1,16 +1,22 @@
-import { HttpRequest, HttpResponse } from "../../../typings";
-import {
-  iUpdateUserController,
-  iUpdateUserRepository,
-} from "../../interfaces/users.types";
+import { HttpRequest, HttpResponse, iController } from "../../../typings";
+import { iUpdateUserRepository } from "../../interfaces/users.types";
 import { UpdateUserParams, User } from "../../models/users.models";
 
-export class UpdateUserController implements iUpdateUserController {
+export class UpdateUserController implements iController {
   constructor(private readonly updateUserRepository: iUpdateUserRepository) {}
-  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>> {
+  async handle(
+    httpRequest: HttpRequest<UpdateUserParams>
+  ): Promise<HttpResponse<User>> {
     try {
       const id = httpRequest.params.id;
-      const body = httpRequest.body;
+      const body = httpRequest?.body;
+
+      if (!body) {
+        return {
+          statusCode: 400,
+          body: "Missing fields",
+        };
+      }
 
       if (!id) {
         return {
@@ -36,7 +42,10 @@ export class UpdateUserController implements iUpdateUserController {
         };
       }
 
-      const user = await this.updateUserRepository.updateUser(id, body);
+      const user = await this.updateUserRepository.updateUser(
+        id,
+        body as unknown as keyof UpdateUserParams
+      );
 
       return {
         statusCode: 200,
