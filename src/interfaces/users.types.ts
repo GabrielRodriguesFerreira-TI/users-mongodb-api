@@ -36,3 +36,7 @@ export interface iUpdateUserController {
 export interface iDeleteUserRepository {
   deleteUser(id: string): Promise<User>;
 }
+
+export interface iDeleteUserController {
+  handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>>;
+}
