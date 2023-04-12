@@ -26,3 +26,9 @@ export interface iCreateUserController {
 export interface iUpdateUserRepository {
   updateUser(params: UpdateUserParams, id: string): Promise<User>;
 }
+
+export interface iUpdateUserController {
+  handle(
+    httpRequest: HttpRequest<UpdateUserParams>
+  ): Promise<HttpResponse<User>>;
+}
