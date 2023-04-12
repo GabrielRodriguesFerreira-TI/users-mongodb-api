@@ -1,5 +1,5 @@
 import { CreateUserParams, User } from "../models/users.models";
-import { HttpResponse } from "../../typings";
+import { HttpRequest, HttpResponse } from "../../typings";
 
 export interface iGetUserController {
   handle(): Promise<HttpResponse<User[]>>;
@@ -11,4 +11,10 @@ export interface iGetUserRepository {
 
 export interface ICreateUserRepository {
   createUser(params: CreateUserParams): Promise<User>;
+}
+
+export interface iCreateUserController {
+  handle(
+    httpRequest: HttpRequest<CreateUserParams>
+  ): Promise<HttpResponse<User>>;
 }
