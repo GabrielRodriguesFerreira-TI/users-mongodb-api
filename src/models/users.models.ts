@@ -12,3 +12,9 @@ export interface CreateUserParams {
   email: string;
   password: string;
 }
+
+export interface UpdateUserParams {
+  firstName?: string;
+  lastName?: string;
+  password?: string;
+}
